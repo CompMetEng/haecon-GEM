@@ -25,7 +25,7 @@ Parasitic nematodes; Haemonchus contortus; genome-scale metabolic modelling; tra
 
 |Taxonomy | Template Model | Reactions | Metabolites| Genes |
 |:-------:|:--------------:|:---------:|:----------:|:-----:|
-| *Haemoncon contortus* |[HaeconGEM](https://github.com/SysBioChalmers/haecon-GEM)|11871|8207|1420|
+| *Haemoncon contortus* |[HaeconGEM](https://github.com/SysBioChalmers/haecon-GEM)|11873|8207|1420|
 
 **Utilisation:**  Experimental data validation; multi-omics integrative analysis; _in silico_ motabolic analysis across develpment.  
 **Field:** metabolic-network reconstruction   
