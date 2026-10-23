@@ -21,7 +21,6 @@ MODEL_PATHS = {
     stage: INPUT_DIR / "CHRR_sampling/models" / f"{stage}_c.xml"
     for stage in ["egg", "L1", "L2", "L3", "L4f", "L4m", "Am", "Af"]
 }
-MODEL_PATHS["L4union"] = INPUT_DIR / "CHRR_sampling/models/L4mf_union_c.xml"
 MODEL_PATHS["HaeconGEM1"] = REFERENCE_PATH
 
 

@@ -19,7 +19,8 @@ PAIRS = [
     ("egg", "L1"),
     ("L1", "L2"),
     ("L2", "L3"),
-    ("L3", "L4union"),
+    ("L3", "L4f"),
+    ("L3", "L4m"),
     ("L4f", "Af"),
     ("L4m", "Am"),
     ("Af", "Am"),
@@ -27,7 +28,7 @@ PAIRS = [
 
 
 def pair_tables(results):
-    """Retain contracted entries, counterparts and explicit absence in seven pairs."""
+    """Retain contracted entries, counterparts and explicit absence in eight pairs."""
     all_long, all_wide, all_pairs = ([], [], [])
     tolerance = 0.0001
     PAIR_DIR.mkdir(parents=True, exist_ok=True)
@@ -154,7 +155,6 @@ def main():
         s: INPUT_DIR / "CHRR_sampling/models" / f"{s}_c.xml"
         for s in ["egg", "L1", "L2", "L3", "L4f", "L4m", "Am", "Af"]
     }
-    MODELS["L4union"] = INPUT_DIR / "CHRR_sampling/models/L4mf_union_c.xml"
     TOL = 0.0001
     FLOOR_PATH = (
         INPUT_DIR / "editorial_reviewer/coment3/biomass_optima_and_10pct_bounds.tsv"
@@ -167,19 +167,13 @@ def main():
     all_rows = []
     summary = []
     for stage, path in MODELS.items():
-        if stage == "HaeconGEM1":
-            continue
-        sample_path = (
-            INPUT_DIR / "CHRR_sampling/pca" / f"{stage}_c_samples.csv"
-            if stage != "L4union"
-            else INPUT_DIR / "CHRR_sampling/union_L4fm/L4mf_union_c_samples.csv"
-        )
+        sample_path = INPUT_DIR / "CHRR_sampling/pca" / f"{stage}_c_samples.csv"
         m = cobra.io.read_sbml_model(str(path))
         m.solver = SOLVER
         m.solver.configuration.timeout = 30
         m.solver.configuration.tolerances.feasibility = 1e-09
         m.solver.configuration.tolerances.optimality = 1e-09
-        floor = float(floors["L4mf_union" if stage == "L4union" else stage])
+        floor = float(floors[stage])
         growth = m.reactions.get_by_id("MAR04413")
         growth.lower_bound = max(growth.lower_bound, floor)
         m.objective = 0
